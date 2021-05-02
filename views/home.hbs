@@ -1,33 +1,10 @@
 <div id="game">
-    <h4>Code: {{roomcode}}</h4>
+    <h4>In Room: {{roomcode}}</h4>
 </div>
 
 <ul id="messages"></ul>
 <form id="form" action="">
     <input id="input" autocomplete="off" /><button>Chat</button>
 </form>
-<script src="http://localhost:3000/socket.io/socket.io.js"></script>
-<script>
- var player = "{{player}}"
-  var socket = io();  
-  var messages = document.getElementById('messages');
-  var form = document.getElementById('form');
-  var input = document.getElementById('input');
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (input.value) {
-        input.value = player + " - " + input.value;
-      socket.emit('chat message', input.value);
-      input.value = '';
-    }
-  });
-
-  socket.on('chat message', function(msg) {
-    var item = document.createElement('li');
-    item.textContent = msg;
-    messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
-  });
-
-</script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="/assets/scripts/home.js"></script>

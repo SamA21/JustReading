@@ -4,7 +4,7 @@ body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSyst
 width:285px;border-left: 1px solid black;border-top: 1px solid black; }
 #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
 #input:focus { outline: none; }
-#form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; border-top:1px solid black; }
+#form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; border-top:1px solid black;    z-index: 3; }
 
 #messages { display: inline-block; list-style-type: none; margin: 0; padding: 0;width:284px; position:fixed;right:0px; height:84%; border-left:1px solid black; overflow-y: auto;overflow-x: hidden; }
 #messages > li { padding: 0.5rem 1rem;width:285px; }
@@ -16,3 +16,6 @@ width:285px;border-left: 1px solid black;border-top: 1px solid black; }
 #headerright h3 {margin:0px;margin-left: auto;margin-right:auto;width:125px;padding-top:25px;color:#fff;}
 #game {width: 85%;display: inline-block; }
 #game h4{ margin-left: auto; margin-right: auto; width:150px;}
+button:hover{
+    cursor: pointer;
+}

@@ -1,8 +1,10 @@
+var path = require('path');
 const express = require('express');
 const exphbs = require('express-handlebars');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var sass = require('node-sass-middleware');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -19,6 +21,15 @@ app.use(bodyParser.json());
 
 app.use(cookieParser());
 app.use(session({secret: "secret key12112"}));
+app.use(sass({
+        src: __dirname + '/assets/sass', //where the sass files are 
+        dest: __dirname + '/assets/css', //where css should go,
+        prefix: '/assets/css',  
+        outputStyle: 'expanded',
+        debug: true // obvious
+    })
+);
+app.use("/assets", express.static(path.resolve(__dirname, 'assets')));
 
 app.post('/login', function(req, res) {
     var username = req.body.username;

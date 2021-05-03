@@ -4,3 +4,19 @@
 <div>
 {{rooms}}
 </div>
+
+<div>
+    <div>
+        <h4>Create Room</h4>
+    </div>
+    <div>    
+        <form action="createRoom" method="POST">
+            <input maxlength="4" type="text" name="roomcode" placeholder="roomcode" required/><br/>
+            <input maxlength="2" min="3" max="20" type="number" name="maxPlayers" placeholder="number of players" required/><br/>
+            <input type="submit"/>
+        </form>
+        <div id="createRoomError">
+            <span>{{error}}</span>
+        </div>
+    </div>
+</div>

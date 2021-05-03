@@ -1,0 +1,13 @@
+$buttonColor: #333; 
+$borderColor: #333; 
+$errorColor: red;
+
+
+$rightSideWidth:19%;
+$headerheight:10vh;
+$formHeight:5vh;
+@function messages-height() {
+    $fullHeight: 100vh;
+    $result:$fullHeight - $headerheight - $formHeight + 1.2vh;
+    @return $result;
+  }

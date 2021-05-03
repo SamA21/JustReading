@@ -54,12 +54,12 @@ app.get('/', (req, res) => {
         var rooms = app.get("roomcodes"); 
         console.log(rooms);
         if(rooms == undefined){
-            rooms = req.session.roomcode;                
-            app.set('roomcodes', rooms);    
-            res.render('home',{"player": req.session.username, "roomcode" : req.session.roomcode });
+            res.render('login',{"error": "Invalid code", "player": req.session.username});
         }else{
             if(rooms.indexOf(req.session.roomcode) >= 0){
                 res.render('home',{"player": req.session.username, "roomcode" : req.session.roomcode });
+            }else{
+                res.render('login',{"error": "Invalid code", "player": req.session.username});
             }
             //else{
             //    rooms += ", " + req.session.roomcode; 
@@ -75,7 +75,12 @@ app.get('/', (req, res) => {
 app.get('/admin', (req, res) => {
     if (req.session.loggedin && req.session.username == "rosur") {    
         var rooms = app.get("roomcodes");          
-        res.render('admin',{"player": req.session.username, "rooms": rooms});
+        if(req.session.createRoomError != undefined && req.session.createRoomError.length > 0){
+            res.render('admin',{"player": req.session.username, "rooms": rooms, "error": req.session.createRoomError});
+        }
+        else{
+            res.render('admin',{"player": req.session.username, "rooms": rooms});
+        }
 	} else {
         if(req.session.roomcode && req.session.roomcode.length > 0){
             res.redirect("/");
@@ -83,6 +88,26 @@ app.get('/admin', (req, res) => {
             res.render('login');
         }
 	}
+});
+
+app.post('/createRoom', function(req, res) {
+    var roomcode = req.body.roomcode;
+    var rooms = app.get("roomcodes"); 
+    req.session.createRoomError = "";       
+    if(rooms == undefined){
+        app.set('roomcodes', roomcode);              
+        res.redirect("/");
+    }
+    else{
+        if(rooms.indexOf(roomcode) >= 0){
+            req.session.createRoomError = "Duplicate room code";
+            res.redirect("/admin");
+        }else{    
+            rooms += ", " + roomcode; 
+            app.set('roomcodes', rooms);   
+            res.redirect("/");
+        }
+    }
 });
 
 io.on('connection', (socket) => {
